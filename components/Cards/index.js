@@ -18,38 +18,42 @@
 //
 // Create a card for each of the articles and add the card to the DOM.
 
-const entryPointArticle = document.querySelector('.cards-container');
+const cardEntry = document.querySelector('.cards-container');
 
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
-  .then(function (response) {
-    // handle success
-    // console.log(response.data.articles);
-    
-    const arrayArticles = Object.values(response.data.articles)
-    arrayArticles.forEach(item => {
-    const myArticles = articlesCreator(response.data);
-    entryPointArticle.prepend(myArticles);
-    });
-
-    console.log(arrayArticles);
-    return arrayArticles;
-
-    // old
-    // const myArticles = articlesCreator(response.data.articles);
-    // entryPointArticle.prepend(myArticles);
-
+  .then(response => {
+    response.data.articles;
+    console.log(response.data.articles);
+    response.data.articles.javascript.forEach(item => {
+      const newCard = cardCreator(item);
+      cardEntry.appendChild(newCard);
+    })
+    response.data.articles.bootstrap.forEach(item => {
+      const newCard = cardCreator(item);
+      cardEntry.appendChild(newCard);
+    })
+    response.data.articles.technology.forEach(item => {
+      const newCard = cardCreator(item);
+      cardEntry.appendChild(newCard);
+    })
+    response.data.articles.jquery.forEach(item => {
+      const newCard = cardCreator(item);
+      cardEntry.appendChild(newCard);
+    })
+    response.data.articles.node.forEach(item => {
+      const newCard = cardCreator(item);
+      cardEntry.appendChild(newCard);
+    })
   })
-  .catch(function (error) {
+    
+  .catch(error => {
     // handle error
     console.log(error);
   })
-  .finally(function () {
-    // always executed
-  });
+  
 
 
-
-function articlesCreator(data){
+function cardCreator(data){
   // element  
   const card = document.createElement("div");
   const headline = document.createElement("div");
@@ -73,17 +77,12 @@ function articlesCreator(data){
   imgContainer.appendChild(authorImg);
   
 // //   content
-  const arrayArticlesMod = Object.values(data)
 
-  // headline.textContent = arrayArticlesMod.[""0""][""0""].headline
+  headline.textContent = data.headline;
+  authorName.textContent = data.authorName;
+  authorImg.src = data.authorPhoto;
  
   
-  // [""0""][1][""0""].authorName
-  // [""0""][1][1].authorName
-  // authorImg.src = data.articles.authorPhoto;
-  // authorName.textContent = arrayArticlesMod.forEach(item => {
-
-  //   });
 
   // arrayArticles.forEach(item => {
   //   const myArticles = articlesCreator(response.data);
